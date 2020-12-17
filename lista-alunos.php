@@ -12,6 +12,7 @@ $options = array(
 $pdo = new PDO($dsn, $username, $password, $options);
 
 $statement = $pdo->query('SELECT * FROM students where id = 2;');
+var_dump($statement->fetchColumn(1));exit();
 
 while ($studentData = $statement->fetch(PDO::FETCH_ASSOC)){
     $student = new \Alura\Pdo\Domain\Model\Student(

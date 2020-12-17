@@ -13,10 +13,17 @@ $options = array(
 
 $pdo = new PDO($dsn, $username, $password, $options);
 
-$student = new Student(null,'Joao Paulo', new \DateTimeImmutable('1991-03-07'));
+$student = new Student(
+    null,
+    "Joao',''); drop table students;-- Paulo",
+    new \DateTimeImmutable('1991-03-07')
+);
 
-$sqlInsert = "INSERT INTO students (name, birth_date) VALUES ('{$student->name()}','{$student->birthDate()->format('Y-m-d')}');";
+$sqlInsert = "INSERT INTO students (name, birth_date) VALUES (?,?);";
+$statement = $pdo->prepare($sqlInsert);
+$statement->bindValue(1,$student->name());
+$statement->bindValue(2,$student->birthDate()->format('Y-m-d'));
+if($statement->execute()){
+    echo "Aluno incluído";
+}
 
-echo $sqlInsert;
-
-var_dump($pdo->exec($sqlInsert));
