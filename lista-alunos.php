@@ -11,26 +11,9 @@ $options = array(
 
 $pdo = new PDO($dsn, $username, $password, $options);
 
-$statement = $pdo->query('SELECT * FROM students where id = 2;');
-var_dump($statement->fetchColumn(1));exit();
-
-while ($studentData = $statement->fetch(PDO::FETCH_ASSOC)){
-    $student = new \Alura\Pdo\Domain\Model\Student(
-        $studentData['id'],
-        $studentData['name'],
-        new \DateTimeImmutable($studentData['birth_date'])
-    );
-
-    echo $student->age() . PHP_EOL;
-}
-
-
-die();
-
+$statement = $pdo->query('SELECT * FROM students;');
 $studentDataList = $statement->fetchAll(PDO::FETCH_ASSOC);
 $studentList = [];
-var_dump($studentDataList);
-exit();
 
 foreach ($studentDataList as $studentData){
     $studentList[] = new \Alura\Pdo\Domain\Model\Student(

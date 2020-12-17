@@ -15,14 +15,16 @@ $pdo = new PDO($dsn, $username, $password, $options);
 
 $student = new Student(
     null,
-    "Joao',''); drop table students;-- Paulo",
+    "Joao Paulo",
     new \DateTimeImmutable('1991-03-07')
 );
 
-$sqlInsert = "INSERT INTO students (name, birth_date) VALUES (?,?);";
+$sqlInsert = "INSERT INTO students (name, birth_date) VALUES (:name,:birth_date);";
 $statement = $pdo->prepare($sqlInsert);
-$statement->bindValue(1,$student->name());
-$statement->bindValue(2,$student->birthDate()->format('Y-m-d'));
+$name = $student->name();
+$statement->bindParam(':name',$name);
+$statement->bindValue(':birth_date',$student->birthDate()->format('Y-m-d'));
+$name = "Novo Nome";
 if($statement->execute()){
     echo "Aluno incluído";
 }
