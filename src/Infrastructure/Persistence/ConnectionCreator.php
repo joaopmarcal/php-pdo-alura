@@ -9,7 +9,7 @@ class ConnectionCreator
 
     public static function createConnection(): PDO
     {
-        $dsn = 'mysql:host=localhost;dbname=test';
+        $dsn = 'mysql:host=localhost;dbname=teste';
         $username = 'root';
         $password = 'joao';
         $options = array(
